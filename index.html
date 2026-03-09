@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Life OS Companion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Онбординг (первый запуск) -->
+    <div id="onboarding" class="onboarding onboarding--visible">
+      <div class="onboarding__content">
+        <!-- Шаг 0: приветствие -->
+        <div class="onboarding-step onboarding-step--active" data-step="0">
+          <h1 class="onboarding__title">Привет, я твой ИИ-компаньон</h1>
+          <p class="onboarding__text">
+            Помогаю с деньгами, планированием и самочувствием каждый день. Представь, что я живу в твоём телефоне
+            и подсказываю в нужные моменты.
+          </p>
+          <button id="onboardingStartBtn" class="button button--primary">
+            Начать настройку
+          </button>
+        </div>
+
+        <!-- Шаг 1: выбор сфер помощи -->
+        <div class="onboarding-step" data-step="1">
+          <div class="onboarding__step-label">Шаг 1 из 3</div>
+          <h1 class="onboarding__title">В каких сферах помочь?</h1>
+          <p class="onboarding__text">
+            Выбери направления, где тебе особенно важна поддержка. Пока это рыба, но так же будет и в боевой версии.
+          </p>
+          <div class="onboarding__options">
+            <button class="onboarding-option" data-area="life">
+              <div class="onboarding-option__title">Жизнь и планы</div>
+              <div class="onboarding-option__desc">Задачи, привычки, важные дела и личные проекты.</div>
+            </button>
+            <button class="onboarding-option" data-area="finance">
+              <div class="onboarding-option__title">Финансы</div>
+              <div class="onboarding-option__desc">Мягкие подсказки «стоит/не стоит» и чувство контроля.</div>
+            </button>
+            <button class="onboarding-option" data-area="health">
+              <div class="onboarding-option__title">Здоровье и самочувствие</div>
+              <div class="onboarding-option__desc">Сон, шаги, небольшие паузы на восстановление.</div>
+            </button>
+            <button class="onboarding-option" data-area="rest">
+              <div class="onboarding-option__title">Отдых и впечатления</div>
+              <div class="onboarding-option__desc">Идеи, куда выбраться и как не забывать про себя.</div>
+            </button>
+          </div>
+          <button id="onboardingAreasNextBtn" class="button button--primary" type="button">
+            Далее
+          </button>
+        </div>
+
+        <!-- Шаг 2: базовые финансы -->
+        <div class="onboarding-step" data-step="2">
+          <div class="onboarding__step-label">Шаг 2 из 3</div>
+          <h1 class="onboarding__title">Немного про деньги</h1>
+          <p class="onboarding__text">
+            Числа примерные, нужны только для того, чтобы прототип мог показывать осмысленную «рыбу» по финансам.
+          </p>
+          <label class="field">
+            <span class="field__label">Примерная зарплата в месяц</span>
+            <input type="number" id="onbSalaryInput" class="field__input" placeholder="Например: 120000">
+          </label>
+          <label class="field">
+            <span class="field__label">Как часто приходит доход?</span>
+            <select id="onbIncomeFreqSelect" class="field__input">
+              <option value="monthly">1 раз в месяц</option>
+              <option value="twice">2 раза в месяц</option>
+              <option value="irregular">Нерегулярно</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Какой остаток хочется держать в безопасности?</span>
+            <input type="number" id="onbSafeReserveInput" class="field__input" placeholder="Например: 20000">
+          </label>
+          <div class="onboarding__actions-row">
+            <button id="onboardingFinanceSkipBtn" class="button button--tertiary" type="button">
+              Пропустить
+            </button>
+            <button id="onboardingFinanceNextBtn" class="button button--primary" type="button">
+              Далее
+            </button>
+          </div>
+        </div>
+
+        <!-- Шаг 3: образ жизни и фокусы -->
+        <div class="onboarding-step" data-step="3">
+          <div class="onboarding__step-label">Шаг 3 из 3</div>
+          <h1 class="onboarding__title">Твой текущий фокус</h1>
+          <p class="onboarding__text">
+            Пару штрихов о том, чем ты живёшь сейчас. Это поможет формировать более точные подсказки даже в прототипе.
+          </p>
+          <label class="field">
+            <span class="field__label">Как обычно проходит твой день?</span>
+            <select id="onbDayTypeSelect" class="field__input">
+              <option value="office">Офис / гибрид</option>
+              <option value="freelance">Фриланс / самозанятость</option>
+              <option value="study">Учёба</option>
+              <option value="home">Дом / семья</option>
+              <option value="other">Другое</option>
+            </select>
+          </label>
+          <div class="onboarding__options">
+            <button class="onboarding-option" data-focus="health">
+              <div class="onboarding-option__title">Здоровье и энергия</div>
+              <div class="onboarding-option__desc">Сон, движение, меньше стресса.</div>
+            </button>
+            <button class="onboarding-option" data-focus="career">
+              <div class="onboarding-option__title">Карьера и деньги</div>
+              <div class="onboarding-option__desc">Работа, проекты, рост дохода.</div>
+            </button>
+            <button class="onboarding-option" data-focus="relations">
+              <div class="onboarding-option__title">Отношения и семья</div>
+              <div class="onboarding-option__desc">Близкие, друзья, поддержка.</div>
+            </button>
+            <button class="onboarding-option" data-focus="balance">
+              <div class="onboarding-option__title">Баланс и отдых</div>
+              <div class="onboarding-option__desc">Меньше выгорания, больше ресурса.</div>
+            </button>
+          </div>
+          <button id="onboardingFinishBtn" class="button button--primary" type="button">
+            Завершить и перейти к дню
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Основной контейнер приложения -->
+    <main class="app">
+      <!-- Экран: Сегодня -->
+      <section id="screen-today" class="screen screen--active">
+        <header class="screen__header">
+          <h2 class="screen__title">Сегодня</h2>
+        </header>
+
+        <div class="screen__content">
+          <!-- Блок самочувствия -->
+          <section class="card">
+            <h3 class="card__title">Как ты сегодня?</h3>
+            <p class="card__text">
+              Отметь, как ты себя чувствуешь. Это поможет мне подстраивать рекомендации.
+            </p>
+            <div class="mood-selector">
+              <button class="mood-selector__item" data-mood="1" aria-label="Очень плохо">😔</button>
+              <button class="mood-selector__item" data-mood="2" aria-label="Скорее плохо">😕</button>
+              <button class="mood-selector__item" data-mood="3" aria-label="Нормально">😐</button>
+              <button class="mood-selector__item" data-mood="4" aria-label="Скорее хорошо">🙂</button>
+              <button class="mood-selector__item" data-mood="5" aria-label="Отлично">😄</button>
+            </div>
+            <p class="card__hint" id="moodHint">
+              Сегодня настроения пока нет в истории — я просто запомню твой выбор.
+            </p>
+          </section>
+
+          <!-- Блок задач -->
+          <section class="card">
+            <div class="card__header">
+              <h3 class="card__title">План на сегодня</h3>
+              <button class="link-button" id="addTaskBtn">+ задача</button>
+            </div>
+            <p class="card__hint" id="todayFocusHint">
+              Здесь будут задачи под твои текущие фокусы — здоровье, деньги, отношения и баланс (рыба).
+            </p>
+            <ul class="task-list" id="todayTaskList">
+              <!-- Рыба-задачи -->
+              <li class="task-item">
+                <label class="task-item__label">
+                  <input type="checkbox">
+                  <span class="task-item__title">Закончить важную задачу по работе</span>
+                </label>
+                <span class="task-item__tag">Работа</span>
+              </li>
+              <li class="task-item">
+                <label class="task-item__label">
+                  <input type="checkbox">
+                  <span class="task-item__title">Позвонить родителям вечером</span>
+                </label>
+                <span class="task-item__tag">Личное</span>
+              </li>
+              <li class="task-item">
+                <label class="task-item__label">
+                  <input type="checkbox">
+                  <span class="task-item__title">30 минут прогулки на свежем воздухе</span>
+                </label>
+                <span class="task-item__tag">Здоровье</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Блок финансы -->
+          <section class="card">
+            <h3 class="card__title">Сегодня по деньгам</h3>
+            <p class="card__text">
+              По твоему базовому плану ты можешь позволить себе сегодня маленькую радость до
+              <strong id="todayBudgetValue">2 000 ₽</strong>, не выходя из комфортной зоны.
+            </p>
+            <p class="card__hint">
+              Это прототип: числа примерные. В рабочей версии я буду учитывать твои реальные доходы и расходы.
+            </p>
+            <div class="card__actions">
+              <button class="button button--secondary" data-open-modal="purchase">
+                Хочу купить что-то
+              </button>
+            </div>
+          </section>
+
+          <!-- Блок активность -->
+          <section class="card">
+            <h3 class="card__title">Активность</h3>
+            <p class="card__text">
+              Сегодня у тебя <strong id="stepsValue">3 200</strong> шагов. Обычно к этому времени у тебя около
+              4 000 шагов — чуть меньше, чем в типичный день.
+            </p>
+            <button class="button button--tertiary" id="addStepsBtn">
+              + Записать прогулку (рыба)
+            </button>
+          </section>
+
+          <!-- Блок совет дня -->
+          <section class="card">
+            <h3 class="card__title">Совет дня</h3>
+            <p class="card__text" id="dailyTip">
+              Сегодня не нагружай вечер: выбери одно главное дело и дай себе время восстановиться.
+            </p>
+            <button class="button button--tertiary" data-open-screen="chat">
+              Обсудить с компаньоном
+            </button>
+          </section>
+        </div>
+      </section>
+
+      <!-- Экран: Чат -->
+      <section id="screen-chat" class="screen">
+        <header class="screen__header">
+          <h2 class="screen__title">Чат</h2>
+          <p class="screen__subtitle">Компаньон всегда на связи</p>
+        </header>
+        <div class="screen__content screen__content--chat">
+          <div class="chat-header">
+            <div class="chat-header__avatar">J</div>
+            <div class="chat-header__info">
+              <div class="chat-header__name">Jarvis-подобный компаньон</div>
+              <div class="chat-header__status">Онлайн • знает твой день (рыба)</div>
+            </div>
+          </div>
+
+          <div class="chat-window" id="chatWindow">
+            <!-- Рыба-диалог -->
+            <div class="chat-message chat-message--bot">
+              <div class="chat-message__bubble">
+                Привет! Можем разобрать твой день, решить, покупать ли что-то, или просто поболтать.
+              </div>
+              <div class="chat-message__time">10:02</div>
+            </div>
+            <div class="chat-quick-actions">
+              <button class="chip" data-chat-template="dayReview">Разобрать день</button>
+              <button class="chip" data-chat-template="purchase">Решить, покупать ли</button>
+              <button class="chip" data-chat-template="vent">Просто выговориться</button>
+            </div>
+          </div>
+
+          <form class="chat-input" id="chatForm">
+            <input
+              type="text"
+              id="chatInput"
+              class="chat-input__field"
+              placeholder="Написать сообщение (рыба)..."
+              autocomplete="off"
+            >
+            <button type="submit" class="chat-input__send">➤</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Экран: Лента -->
+      <section id="screen-feed" class="screen">
+        <header class="screen__header">
+          <h2 class="screen__title">Лента</h2>
+          <p class="screen__subtitle">Подборка коротких заметок от ИИ (рыба)</p>
+        </header>
+        <div class="screen__content">
+          <div class="chips-row" id="feedFilters">
+            <button class="chip chip--active" data-topic="all">Все темы</button>
+            <button class="chip" data-topic="finance">Финансы</button>
+            <button class="chip" data-topic="productivity">Продуктивность</button>
+            <button class="chip" data-topic="health">Здоровье</button>
+            <button class="chip" data-topic="psychology">Психология</button>
+          </div>
+
+          <div id="feedList" class="feed-list">
+            <!-- Карточки с рыбой будут добавлены JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран: Задачи / Профиль -->
+      <section id="screen-more" class="screen">
+        <header class="screen__header">
+          <h2 class="screen__title">Задачи и календарь</h2>
+        </header>
+        <div class="screen__content">
+          <section class="card">
+            <h3 class="card__title">Ближайшие задачи (рыба)</h3>
+            <p class="card__text">
+              Спокойный список дел на ближайшие дни. В прототипе он статичный, но передаёт ощущение календаря.
+            </p>
+            <ul class="simple-list">
+              <li><strong>Сегодня</strong> — закончить отчёт по проекту, 30 минут прогулки, позвонить родителям.</li>
+              <li><strong>Завтра</strong> — забронировать столик на выходные, разобрать почту до 15:00.</li>
+              <li><strong>На этой неделе</strong> — пересмотреть подписки и расходы, один вечер без гаджетов.</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3 class="card__title">О тебе (рыба)</h3>
+            <p class="card__text">
+              Доход: ~120 000 ₽ в месяц<br>
+              Фокусы: здоровье, карьера<br>
+              Тип дня: гибридный офис
+            </p>
+          </section>
+
+          <section class="card">
+            <h3 class="card__title">Что уже умеет помощник</h3>
+            <ul class="simple-list">
+              <li>Делать мягкие подсказки по деньгам</li>
+              <li>Помогать планировать день и задачи</li>
+              <li>Следить за базовой активностью (рыба)</li>
+              <li>Показывать ленту заметок по важным темам</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h3 class="card__title">Важно</h3>
+            <p class="card__text">
+              Это прототип без реальных интеграций и моделей ИИ. В первой версии мы проверяем,
+              насколько формат компаньона вообще попадает в твою ежедневную жизнь.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <!-- Нижняя навигация -->
+    <nav class="bottom-nav">
+      <button class="bottom-nav__item bottom-nav__item--active" data-screen-target="screen-today">
+        <span class="bottom-nav__icon">☀️</span>
+        <span class="bottom-nav__label">Сегодня</span>
+      </button>
+      <button class="bottom-nav__item" data-screen-target="screen-chat">
+        <span class="bottom-nav__icon">💬</span>
+        <span class="bottom-nav__label">Чат</span>
+      </button>
+      <button class="bottom-nav__item" data-screen-target="screen-feed">
+        <span class="bottom-nav__icon">📚</span>
+        <span class="bottom-nav__label">Лента</span>
+      </button>
+      <button class="bottom-nav__item" data-screen-target="screen-more">
+        <span class="bottom-nav__icon">⚙️</span>
+        <span class="bottom-nav__label">Задачи</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Модалка-рыба для оценки покупки -->
+  <div id="purchaseModal" class="modal">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__content">
+      <h3 class="modal__title">Покупка (рыба)</h3>
+      <p class="modal__text">
+        Представь, что ты хочешь купить что-то — например, наушники за 8 000 ₽.
+        В рабочей версии я оценю, насколько это вписывается в твой план по деньгам.
+      </p>
+      <p class="modal__text modal__text--accent">
+        Сейчас, по прототипу, я бы сказал: покупка окей, но тогда стоит сократить импульсивные траты в другие дни.
+      </p>
+      <button class="button button--primary" data-close-modal>
+        Понятно
+      </button>
+    </div>
+  </div>
+
+  <!-- Модалка-рыба добавления задачи -->
+  <div id="taskModal" class="modal">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__content">
+      <h3 class="modal__title">Новая задача (рыба)</h3>
+      <p class="modal__text">
+        В этом прототипе задача добавится только визуально и никуда не синхронизируется.
+      </p>
+      <label class="field">
+        <span class="field__label">Текст задачи</span>
+        <input type="text" id="taskInput" class="field__input" placeholder="Например: 10 минут медитации">
+      </label>
+      <button class="button button--primary" id="taskSaveBtn">
+        Добавить в список
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
