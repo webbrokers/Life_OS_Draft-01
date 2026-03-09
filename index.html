@@ -8,6 +8,27 @@
 </head>
 <body>
   <div id="app">
+    <header class="app-shell-header">
+      <div class="app-shell-header__left">
+        <div class="app-shell-logo">Life OS Companion</div>
+        <div class="app-shell-plan">
+          <span class="app-shell-plan__badge">Lite</span>
+          <span class="app-shell-plan__label">Free plan</span>
+        </div>
+      </div>
+      <div class="app-shell-header__right">
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Переключить тему оформления"
+        >
+          <span class="theme-toggle__thumb"></span>
+        </button>
+        <div class="app-shell-user">B</div>
+      </div>
+    </header>
+
     <!-- Онбординг (первый запуск) -->
     <div id="onboarding" class="onboarding onboarding--visible">
       <div class="onboarding__content">

@@ -3,6 +3,55 @@
 (function () {
   const SCREENS = ["screen-today", "screen-chat", "screen-feed", "screen-more"];
 
+  // Тема / стилистика в духе Manus
+  const THEME_STORAGE_KEY = "lo_theme";
+  const bodyEl = document.body;
+  const themeToggle = document.getElementById("themeToggle");
+
+  function applyTheme(theme) {
+    const normalized = theme === "light" ? "light" : "dark";
+    bodyEl.classList.remove("theme-light", "theme-dark");
+    bodyEl.classList.add(`theme-${normalized}`);
+
+    if (themeToggle) {
+      themeToggle.setAttribute("data-theme", normalized);
+      themeToggle.setAttribute("aria-pressed", normalized === "light" ? "true" : "false");
+    }
+  }
+
+  function initTheme() {
+    let stored = null;
+    try {
+      stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    } catch (e) {
+      stored = null;
+    }
+
+    let theme = stored;
+    if (theme !== "light" && theme !== "dark") {
+      const prefersDark =
+        window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      theme = prefersDark ? "dark" : "light";
+    }
+
+    applyTheme(theme);
+  }
+
+  initTheme();
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const isLight = bodyEl.classList.contains("theme-light");
+      const next = isLight ? "dark" : "light";
+      applyTheme(next);
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, next);
+      } catch (e) {
+        // игнорируем, если localStorage недоступен
+      }
+    });
+  }
+
   // Онбординг
   const onboardingEl = document.getElementById("onboarding");
   const onboardingStartBtn = document.getElementById("onboardingStartBtn");

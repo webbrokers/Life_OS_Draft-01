@@ -15,8 +15,48 @@ body {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  background-color: #05060a;
-  color: #f5f5f7;
+  /* Dark theme — по умолчанию */
+  --bg-root: #050815;
+  --bg-elevated: #050815;
+  --bg-card: #0b1020;
+  --bg-card-soft: #0f172a;
+  --bg-overlay: rgba(15, 23, 42, 0.82);
+  --border-subtle: rgba(148, 163, 184, 0.35);
+  --border-soft: rgba(15, 23, 42, 0.7);
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --accent: #6366f1;
+  --accent-soft: rgba(99, 102, 241, 0.18);
+  --accent-soft-strong: rgba(99, 102, 241, 0.32);
+  --shadow-soft: 0 22px 60px rgba(15, 23, 42, 0.9);
+  --radius-card: 18px;
+  background:
+    radial-gradient(circle at top, #111827 0, #020617 55%, #020617 100%);
+  color: var(--text-main);
+}
+
+body.theme-light {
+  --bg-root: #f4f4f7;
+  --bg-elevated: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-soft: #f9fafb;
+  --bg-overlay: rgba(15, 23, 42, 0.08);
+  --border-subtle: rgba(148, 163, 184, 0.25);
+  --border-soft: rgba(15, 23, 42, 0.08);
+  --text-main: #0f172a;
+  --text-muted: #6b7280;
+  --accent: #6366f1;
+  --accent-soft: rgba(99, 102, 241, 0.1);
+  --accent-soft-strong: rgba(99, 102, 241, 0.22);
+  --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.08);
+  background:
+    radial-gradient(circle at top, #f9fafb 0, #f3f4f6 40%, #e5e7eb 100%);
+  color: var(--text-main);
+  color-scheme: light;
+}
+
+body.theme-dark {
+  color-scheme: dark;
 }
 
 /* Контейнер приложения */
@@ -27,6 +67,15 @@ body {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+  padding: 12px 8px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  #app {
+    padding: 20px 20px 96px;
+  }
 }
 
 /* Онбординг */
@@ -34,8 +83,10 @@ body {
 .onboarding {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, #202342 0, #05060a 55%, #000 100%);
-  color: #f5f5f7;
+  background:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.25) 0, transparent 55%),
+    linear-gradient(to bottom, #020617 0, #020617 60%, #020617 100%);
+  color: var(--text-main);
   display: none;
   align-items: center;
   justify-content: center;
@@ -50,6 +101,11 @@ body {
 .onboarding__content {
   max-width: 420px;
   text-align: left;
+  background: var(--bg-card-soft);
+  border-radius: 24px;
+  padding: 24px 20px 20px;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .onboarding__title {
@@ -60,7 +116,7 @@ body {
 .onboarding__text {
   margin: 0 0 24px;
   line-height: 1.5;
-  color: #c7cadb;
+  color: var(--text-muted);
 }
 
 .onboarding-step {
@@ -73,7 +129,7 @@ body {
 
 .onboarding__step-label {
   font-size: 12px;
-  color: #9a9ebb;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 6px;
@@ -89,12 +145,12 @@ body {
 .onboarding-option {
   width: 100%;
   border-radius: 14px;
-  border: 1px solid rgba(148, 163, 255, 0.45);
-  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
   padding: 10px 12px;
   text-align: left;
   cursor: pointer;
-  color: #e5e7ff;
+  color: var(--text-main);
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease,
     box-shadow 0.15s ease;
 }
@@ -106,7 +162,7 @@ body {
 
 .onboarding-option__desc {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .onboarding-option--selected {
@@ -143,8 +199,22 @@ body {
   padding: 16px 16px 4px;
   position: sticky;
   top: 0;
-  background: linear-gradient(to bottom, rgba(5, 6, 10, 1), rgba(5, 6, 10, 0.7), rgba(5, 6, 10, 0));
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.96),
+    rgba(15, 23, 42, 0.9),
+    transparent
+  );
   z-index: 1;
+}
+
+body.theme-light .screen__header {
+  background: linear-gradient(
+    to bottom,
+    rgba(244, 244, 247, 0.98),
+    rgba(244, 244, 247, 0.9),
+    transparent
+  );
 }
 
 .screen__title {
@@ -155,7 +225,7 @@ body {
 .screen__subtitle {
   margin: 4px 0 0;
   font-size: 13px;
-  color: #9a9ebb;
+  color: var(--text-muted);
 }
 
 .screen__content {
@@ -172,11 +242,12 @@ body {
 /* Карточки */
 
 .card {
-  background: radial-gradient(circle at top left, #1b1e36 0, #101221 40%, #070813 100%);
-  border-radius: 16px;
-  padding: 14px 14px 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 16px 16px 14px;
   margin-bottom: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .card__header {
@@ -195,13 +266,13 @@ body {
   margin: 4px 0 8px;
   font-size: 13px;
   line-height: 1.5;
-  color: #d0d3eb;
+  color: var(--text-muted);
 }
 
 .card__hint {
   margin: 0;
   font-size: 12px;
-  color: #9a9ebb;
+  color: var(--text-muted);
 }
 
 .card__actions {
@@ -228,9 +299,9 @@ body {
 }
 
 .button--primary {
-  background: linear-gradient(135deg, #5f5fff, #a855ff);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: #fff;
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.4);
 }
 
 .button--primary:hover {
@@ -238,27 +309,129 @@ body {
 }
 
 .button--secondary {
-  background: rgba(99, 102, 241, 0.1);
-  color: #d0d3eb;
+  background: var(--accent-soft);
+  color: var(--text-main);
 }
 
 .button--secondary:hover {
-  background: rgba(99, 102, 241, 0.16);
+  background: var(--accent-soft-strong);
 }
 
 .button--tertiary {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #d0d3eb;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
 }
 
 .link-button {
   background: none;
   border: none;
   padding: 0;
-  color: #a5b4fc;
+  color: #4f46e5;
   font-size: 13px;
   cursor: pointer;
+}
+
+/* Верхний хедер-шелл (как в Manus) */
+
+.app-shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px 4px 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+@media (min-width: 768px) {
+  .app-shell-header {
+    margin: 0 0 14px;
+    padding: 10px 16px;
+  }
+}
+
+.app-shell-header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.app-shell-logo {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.app-shell-plan {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+
+.app-shell-plan__badge {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.app-shell-plan__label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.app-shell-header__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-shell-user {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4f46e5, #818cf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--accent-soft);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f9fafb;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.5);
+  transform: translateX(-7px);
+  transition: transform 0.2s ease;
+}
+
+body.theme-light .theme-toggle__thumb {
+  transform: translateX(7px);
 }
 
 /* Нижняя навигация */
@@ -270,12 +443,12 @@ body {
   right: 0;
   height: 64px;
   padding: 4px 10px;
-  background: rgba(6, 8, 20, 0.98);
+  background: var(--bg-elevated);
   backdrop-filter: blur(14px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--border-soft);
   z-index: 10;
 }
 
@@ -284,7 +457,7 @@ body {
   min-width: 0;
   border: none;
   background: transparent;
-  color: #9a9ebb;
+  color: var(--text-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -297,8 +470,8 @@ body {
 }
 
 .bottom-nav__item--active {
-  color: #e5e7ff;
-  background: rgba(99, 102, 241, 0.14);
+  color: var(--text-main);
+  background: var(--accent-soft);
 }
 
 .bottom-nav__icon {
@@ -324,7 +497,7 @@ body {
   border-radius: 999px;
   border: none;
   padding: 6px 0;
-  background: rgba(17, 24, 39, 0.9);
+  background: var(--bg-card-soft);
   cursor: pointer;
   font-size: 18px;
   transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
@@ -376,8 +549,8 @@ body {
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 999px;
-  background: rgba(148, 163, 255, 0.12);
-  color: #c7d2fe;
+  background: var(--accent-soft);
+  color: #4f46e5;
 }
 
 /* Чат */
@@ -411,7 +584,7 @@ body {
 
 .chat-header__status {
   font-size: 11px;
-  color: #9a9ebb;
+  color: var(--text-muted);
 }
 
 .chat-window {
@@ -444,7 +617,7 @@ body {
 }
 
 .chat-message--bot .chat-message__bubble {
-  background: rgba(17, 24, 39, 0.9);
+  background: var(--bg-card-soft);
   border-bottom-left-radius: 4px;
 }
 
@@ -455,7 +628,7 @@ body {
 
 .chat-message__time {
   font-size: 10px;
-  color: #9a9ebb;
+  color: var(--text-muted);
   margin-top: 2px;
 }
 
@@ -476,11 +649,11 @@ body {
 .chat-input__field {
   flex: 1;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 255, 0.35);
+  border: 1px solid var(--border-subtle);
   padding: 6px 12px;
   font-size: 13px;
-  background: rgba(15, 23, 42, 0.95);
-  color: #e5e7ff;
+  background: var(--bg-card-soft);
+  color: var(--text-main);
 }
 
 .chat-input__field::placeholder {
@@ -511,17 +684,17 @@ body {
 
 .chip {
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 255, 0.35);
+  border: 1px solid var(--border-subtle);
   padding: 4px 10px;
   font-size: 12px;
   background: transparent;
-  color: #d0d3eb;
+  color: var(--text-main);
   white-space: nowrap;
   cursor: pointer;
 }
 
 .chip--active {
-  background: rgba(99, 102, 241, 0.3);
+  background: var(--accent-soft);
 }
 
 /* Лента */
@@ -533,10 +706,11 @@ body {
 }
 
 .feed-card {
-  background: radial-gradient(circle at top right, #1f2937 0, #0b1020 40%, #050814 100%);
-  border-radius: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
   padding: 12px 12px 10px;
-  border: 1px solid rgba(148, 163, 255, 0.25);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .feed-card__topic {
@@ -555,7 +729,7 @@ body {
 .feed-card__excerpt {
   margin: 0 0 8px;
   font-size: 13px;
-  color: #d0d3eb;
+  color: var(--text-muted);
 }
 
 .feed-card__meta {
@@ -563,7 +737,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 11px;
-  color: #9a9ebb;
+  color: var(--text-muted);
 }
 
 /* Простые списки */
@@ -573,7 +747,7 @@ body {
   padding-left: 0;
   margin: 6px 0 0;
   font-size: 13px;
-  color: #d0d3eb;
+  color: var(--text-main);
 }
 
 .simple-list li {
@@ -591,16 +765,16 @@ body {
 
 .field__label {
   font-size: 12px;
-  color: #9a9ebb;
+  color: var(--text-muted);
 }
 
 .field__input {
   border-radius: 10px;
-  border: 1px solid rgba(148, 163, 255, 0.35);
+  border: 1px solid var(--border-subtle);
   padding: 6px 10px;
   font-size: 13px;
-  background: rgba(15, 23, 42, 0.95);
-  color: #e5e7ff;
+  background: var(--bg-card-soft);
+  color: var(--text-main);
 }
 
 .field__input::placeholder {
@@ -625,18 +799,18 @@ body {
 .modal__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--bg-overlay);
 }
 
 .modal__content {
   position: relative;
   max-width: 420px;
   width: calc(100% - 32px);
-  background: radial-gradient(circle at top, #111827 0, #020617 60%);
-  border-radius: 18px;
+  background: var(--bg-card-soft);
+  border-radius: 20px;
   padding: 16px 16px 14px;
-  border: 1px solid rgba(148, 163, 255, 0.4);
-  color: #e5e7ff;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
 }
 
 .modal__title {
@@ -647,7 +821,7 @@ body {
 .modal__text {
   margin: 4px 0 8px;
   font-size: 13px;
-  color: #d0d3eb;
+  color: var(--text-muted);
 }
 
 .modal__text--accent {
